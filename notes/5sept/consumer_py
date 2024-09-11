@@ -1,0 +1,31 @@
+from django.db import transaction
+
+async def save_message(self, content, message_type='text'):
+    user = self.scope["user"]
+    try:
+        # Use a transaction to ensure atomicity
+        async with sync_to_async(transaction.atomic):
+            # Try to fetch the existing chat room
+            room, created = await sync_to_async(ChatRoom.objects.get_or_create)(name=self.chat_room)
+            
+            # If the room was created, print a debug message
+            if created:
+                print(f"ChatRoom with name {self.chat_room} was created.")
+            
+            # Try to fetch the receiver user if receiver_id is provided
+            receiver = None
+            if self.receiver_id:
+                try:
+                    receiver = await sync_to_async(User.objects.get)(id=self.receiver_id)
+                except User.DoesNotExist:
+                    receiver = None  # Handle invalid receiver_id
+
+            # Save the message in the chat room
+            await sync_to_async(ChatMessage.objects.create)(
+                sender=user,
+                receiver=receiver,
+                message=content,
+                room=room
+            )
+    except Exception as e:
+        print(f"Error saving message: {str(e)}")

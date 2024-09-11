@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Denk+One&family=Pacifico&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+  --main-bg-color: #0C2B2B;
+  --logo-text-color: #BEFAFA;
+
+  --font-logo: 'Pacifico', cursive;
+  --font-primary: 'Ubuntu', sans-serif;
+  --font-secondary: 'Denk One', sans-serif;
+
+  --drawer-bg-color: #1A9EC7;
+
+  --drawer-width: 450px;
+  --drawer-height: 80%;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  font-family: var(--font-primary);
+}
+
+h1 {
+  font-family: var(--font-logo);
+  color: var(--logo-text-color);
+}

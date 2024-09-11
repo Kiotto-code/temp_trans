@@ -1,0 +1,34 @@
+{% extends "components/drawers/drawer-left.html" %}
+
+{% load static %}
+
+{% block drawerStyles %}
+	<link rel="stylesheet" href="{% static 'styles/chat-room.css' %}" />
+{% endblock %}
+
+{% block drawerHeader %}
+	<h2>{{ room_name }}</h2>
+{% endblock %}
+
+{% block drawerContent %}
+{% comment %} <div id="chat-config" data-nickname="{{ user.profile.nickname }}" data-room="8888" style="display:none;"></div> {% endcomment %}
+<div id="chat-config" data-nickname="{{ user.profile.nickname }}" data-room="public_room" style="display:none;"></div>
+
+<div class="chat-container">
+    <div class="chat-messages" id="chat-messages" data-room="public_room">
+        <!-- Messages will be appended here dynamically -->
+    </div>
+    <div class="chat-input">
+        <input type="text" id="message-input" data-room="public_room" placeholder="Type a message...">
+        <button id="send-button">
+			<img src="{% static 'images/icons/send.svg' %}" alt="Send" />
+		</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block drawerScripts %}
+	<script type="module" src="{% static 'js/chat/chatConfig.js' %}"></script>
+	{% comment %} <script type="module" src="{% static 'js/chat/chat.js' %}"></script> {% endcomment %}
+    <script type="module" src="{% static 'js/chat/friendroom.js' %}"></script>
+{% endblock %}

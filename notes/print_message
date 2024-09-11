@@ -1,0 +1,39 @@
+from chat.models import ChatMessage
+message = ChatMessage.objects.first()
+print(message)
+
+
+from chat.models import ChatMessage
+messages = ChatMessage.objects.all()  # Retrieve all ChatMessage instances
+for message in messages:
+    print(message)  # Print each message
+    
+from chat.models import ChatMessage
+messages = ChatMessage.objects.filter(room=room).order_by('-timestamp')  # Retrieve all ChatMessage instances
+for message in messages:
+    print(message)  # Print each message
+    
+    
+    
+from django.contrib.auth import get_user_model
+from chat.models import ChatRoom, ChatMessage  # Replace 'myapp' with your app's name
+
+User = get_user_model()
+friend_username = 'actual_username'  # Replace with a real username
+
+# Fetch the current user
+current_user = User.objects.get(username='kiottoy-queen1')  # Replace 'your_username' with the current user's username
+current_user = User.objects.get(username='kiottoy')  # Replace 'your_username' with the current user's username
+
+# Fetch the friend
+friend = User.objects.get(username=friend_username)
+
+# Get room name and fetch the room
+room_name = ChatRoom.get_private_chat_roomname(current_user, friend)
+room = ChatRoom.objects.get(name=room_name)
+
+# Fetch messages for that room
+messages = ChatMessage.objects.filter(room=room).order_by('-timestamp')
+for message in messages:
+    print(message.message)  # Adjust based on the fields you want to inspect
+
